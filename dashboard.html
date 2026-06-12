@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD THING | لوحة تحكم الأونر</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============ أنماط لوحة التحكم ============ */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+        }
+
+        /* السايدبار */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        body.lang-en .sidebar {
+            right: auto;
+            left: 0;
+            border-left: none;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .sidebar-logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: var(--font-en);
+            letter-spacing: 1px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav .nav-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-nav .nav-section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding: 0 12px;
+            font-weight: 700;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-nav a i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+        }
+
+        .sidebar-user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar-user-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .sidebar-user-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* المحتوى الرئيسي */
+        .dashboard-main {
+            flex: 1;
+            margin-right: 280px;
+            padding: 24px;
+        }
+
+        body.lang-en .dashboard-main {
+            margin-right: 0;
+            margin-left: 280px;
+        }
+
+        .dashboard-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .dashboard-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .dashboard-title span {
+            color: var(--primary);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard-search {
+            position: relative;
+        }
+
+        .dashboard-search input {
+            padding: 10px 16px 10px 40px;
+            border: 2px solid var(--input-border);
+            border-radius: 50px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            width: 250px;
+            transition: var(--transition);
+        }
+
+        .dashboard-search input:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+            width: 300px;
+        }
+
+        .dashboard-search i {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        body.lang-en .dashboard-search i {
+            right: auto;
+            left: 16px;
+        }
+
+        body.lang-en .dashboard-search input {
+            padding: 10px 40px 10px 16px;
+        }
+
+        /* بطاقات الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .stat-card-icon.blue {
+            background: #e7f1ff;
+            color: #0d6efd;
+        }
+
+        .stat-card-icon.green {
+            background: #d1fae5;
+            color: #198754;
+        }
+
+        .stat-card-icon.purple {
+            background: #f0e6ff;
+            color: #6f42c1;
+        }
+
+        .stat-card-icon.orange {
+            background: #fff3e0;
+            color: #fd7e14;
+        }
+
+        .stat-card-info h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: var(--font-en);
+        }
+
+        .stat-card-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* شبكة المحتوى */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-body.no-padding {
+            padding: 0;
+        }
+
+        /* جدول المشاريع */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 14px 20px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        body.lang-en table th,
+        body.lang-en table td {
+            text-align: left;
+        }
+
+        table th {
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--bg-secondary);
+        }
+
+        table tbody tr {
+            transition: var(--transition);
+        }
+
+        table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: #fff3e0;
+            color: #fd7e14;
+        }
+
+        .badge-primary {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* معلومات الأونر */
+        .owner-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .owner-detail:last-child {
+            border-bottom: none;
+        }
+
+        .owner-detail-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .owner-detail-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .owner-detail-info span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .owner-detail-info .copy-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            transition: var(--transition);
+        }
+
+        .owner-detail-info .copy-btn:hover {
+            color: var(--primary-hover);
+        }
+
+        /* رسالة الترحيب */
+        .welcome-message {
+            background: var(--gradient-primary);
+            color: #fff;
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+        }
+
+        .welcome-message h2 {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+
+        .welcome-message p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* أزرار الإجراءات */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon-only {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn-icon-only:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* نظام التنبيهات */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 14px 24px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            z-index: 9999;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* زر تبديل القائمة في الجوال */
+        .sidebar-toggle-mobile {
+            display: none;
+        }
+
+        /* تجاوب */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+            body.lang-en .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .dashboard-main {
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+
+            .sidebar-toggle-mobile {
+                display: flex;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-search input {
+                width: 180px;
+            }
+
+            .dashboard-search input:focus {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-main {
+                padding: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar-actions {
+                width: 100%;
+            }
+
+            .dashboard-search {
+                flex: 1;
+            }
+
+            .dashboard-search input {
+                width: 100%;
+            }
+
+            .dashboard-search input:focus {
+                width: 100%;
+            }
+        }
+
+        /* تراكب السايدبار في الجوال */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- تراكب السايدبار -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- السايدبار -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">MD THING</div>
+            <div class="sidebar-subtitle" data-lang="dashboard-subtitle">لوحة تحكم الأونر</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title" data-lang="nav-section-main">الرئيسية</div>
+                <a href="#" class="active" data-section="overview">
+                    <i class="fas fa-th-large"></i>
+                    <span data-lang="nav-overview">نظرة عامة</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" data-lang="nav-section-projects">المشاريع</div>
+                <a href="#" data-section="projects">
+                    <i class="fas fa-folder-open"></i>
+                    <span data-lang="nav-my-projects">مشاريعي</span>
+                </a>
+                <a href="#" data-section="add-project">
+                    <i class="fas fa-plus-circle"></i>
+                    <span data-lang="nav-add-project">إضافة مشروع</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title" data-lang="nav-section-settings">الإعدادات</div>
+                <a href="#" data-section="profile">
+                    <i class="fas fa-user-cog"></i>
+                    <span data-lang="nav-profile">الملف الشخصي</span>
+                </a>
+                <a href="#" data-section="security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-lang="nav-security">الأمان</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="sidebar-user-avatar">O</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Owner</div>
+                    <div class="sidebar-user-role">المالك | Founder</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="dashboard-main" id="dashboardMain">
+        <!-- الشريط العلوي -->
+        <div class="dashboard-topbar">
+            <div>
+                <h1 class="dashboard-title" data-lang="dashboard-title">لوحة <span>التحكم</span></h1>
+            </div>
+            <div class="topbar-actions">
+                <div class="dashboard-search">
+                    <input type="text" placeholder="بحث سريع..." data-lang-placeholder="search-placeholder">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="icon-btn sidebar-toggle-mobile" id="sidebarToggleMobile" title="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <button class="icon-btn theme-toggle" id="themeToggleDB" title="تغيير الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="icon-btn lang-toggle" id="langToggleDB" title="تغيير اللغة">
+                    <span class="lang-text">EN</span>
+                </button>
+                <a href="Index.html" class="btn btn-outline btn-sm" data-lang="back-to-site">
+                    <i class="fas fa-arrow-right"></i> الموقع
+                </a>
+            </div>
+        </div>
+
+        <!-- رسالة ترحيب -->
+        <div class="welcome-message">
+            <h2 data-lang="welcome-back">👋 مرحباً بعودتك يا Owner!</h2>
+            <p data-lang="welcome-back-desc">آخر تسجيل دخول: اليوم. كل الأنظمة تعمل بشكل طبيعي.</p>
+        </div>
+
+        <!-- الإحصائيات -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-icon blue">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>24</h3>
+                    <p data-lang="stat-total-projects">إجمالي المشاريع</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>18</h3>
+                    <p data-lang="stat-completed">مكتملة</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon purple">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>35</h3>
+                    <p data-lang="stat-clients">عميل</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon orange">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>4.9</h3>
+                    <p data-lang="stat-rating">التقييم</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- شبكة المحتوى -->
+        <div class="dashboard-grid">
+            <!-- معلومات الأونر -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 data-lang="owner-info-title">👤 معلومات الأونر</h3>
+                    <span class="badge badge-success" data-lang="active-status">نشط</span>
+                </div>
+                <div class="card-body">
+                    <div class="owner-detail">
+                        <div class="owner-detail-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="owner-detail-info">
+                            <h4 data-lang="owner-name-label">الاسم</h4>
+                            <span>Owner</span>
+                        </div>
+                    </div>
+                    <div class="owner-detail">
+                        <div class="owner-detail-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="owner-detail-info">
+                            <h4 data-lang="owner-email-label">البريد الإلكتروني</h4>
+                            <span>mohamedhere63@gmail.com <button class="copy-btn" data-copy="mohamedhere63@gmail.com" title="نسخ"><i class="fas fa-copy"></i></button></span>
+                        </div>
+                    </div>
+                    <div class="owner-detail">
+                        <div class="owner-detail-icon">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="owner-detail-info">
+                            <h4 data-lang="owner-discord-label">ديسكورد</h4>
+                            <span>81a0 <button class="copy-btn" data-copy="81a0" title="نسخ"><i class="fas fa-copy"></i></button></span>
+                        </div>
+                    </div>
+                    <div class="owner-detail">
+                        <div class="owner-detail-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="owner-detail-info">
+                            <h4 data-lang="owner-telegram-label">تلجرام</h4>
+                            <span style="color: var(--text-muted);" data-lang="not-specified">لم يتم تحديد</span>
+                        </div>
+                    </div>
+                    <div class="owner-detail">
+                        <div class="owner-detail-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="owner-detail-info">
+                            <h4 data-lang="owner-joined-label">تاريخ الانضمام</h4>
+                            <span>2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آخر المشاريع -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 data-lang="recent-projects-title">📁 آخر المشاريع</h3>
+                    <a href="#" class="btn btn-sm btn-outline" data-lang="view-all">عرض الكل</a>
+                </div>
+                <div class="card-body no-padding">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th data-lang="table-project">المشروع</th>
+                                    <th data-lang="table-type">النوع</th>
+                                    <th data-lang="table-status">الحالة</th>
+                                    <th data-lang="table-actions">إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>قالب موقع شخصي</td>
+                                    <td><span class="badge badge-primary">HTML/CSS</span></td>
+                                    <td><span class="badge badge-success">مكتمل</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon-only" title="تعديل"><i class="fas fa-edit"></i></button>
+                                            <button class="btn-icon-only" title="حذف"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>لوحة تحكم هوست</td>
+                                    <td><span class="badge badge-primary">PHP/MySQL</span></td>
+                                    <td><span class="badge badge-success">مكتمل</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon-only" title="تعديل"><i class="fas fa-edit"></i></button>
+                                            <button class="btn-icon-only" title="حذف"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>تطبيق مهام</td>
+                                    <td><span class="badge badge-primary">React</span></td>
+                                    <td><span class="badge badge-warning">قيد التطوير</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon-only" title="تعديل"><i class="fas fa-edit"></i></button>
+                                            <button class="btn-icon-only" title="حذف"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>مكتبة أكواد</td>
+                                    <td><span class="badge badge-primary">JavaScript</span></td>
+                                    <td><span class="badge badge-success">مكتمل</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon-only" title="تعديل"><i class="fas fa-edit"></i></button>
+                                            <button class="btn-icon-only" title="حذف"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إحصائيات إضافية -->
+            <div class="dashboard-card full-width">
+                <div class="card-header">
+                    <h3 data-lang="quick-stats-title">📊 إحصائيات سريعة</h3>
+                </div>
+                <div class="card-body">
+                    <p style="color: var(--text-muted); text-align: center; padding: 20px;" data-lang="more-stats-soon">
+                        🚀 المزيد من الإحصائيات التفصيلية قريباً...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- حاوية التنبيهات -->
+    <div id="toastContainer"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // === كود خاص بلوحة التحكم ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من تسجيل الدخول
+            if (localStorage.getItem('md-thing-logged-in') !== 'true') {
+                window.location.href = 'Index.html';
+                return;
+            }
+
+            // عناصر DOM
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
+            const themeToggleDB = document.getElementById('themeToggleDB');
+            const langToggleDB = document.getElementById('langToggleDB');
+            const toastContainer = document.getElementById('toastContainer');
+
+            // فتح/إغلاق السايدبار في الجوال
+            sidebarToggleMobile.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('active');
+            });
+
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+            });
+
+            // تغيير الوضع
+            themeToggleDB.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('md-thing-theme', newTheme);
+                
+                const icon = themeToggleDB.querySelector('i');
+                icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            });
+
+            // استعادة الوضع
+            const savedTheme = localStorage.getItem('md-thing-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (themeToggleDB) {
+                const icon = themeToggleDB.querySelector('i');
+                icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            // نسخ النص
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const text = this.getAttribute('data-copy');
+                    navigator.clipboard.writeText(text).then(() => {
+                        showToast('✅ تم النسخ!', 'success');
+                    });
+                });
+            });
+
+            // التنقل في السايدبار
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // إغلاق السايدبار في الجوال
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('active');
+                });
+            });
+
+            // دالة التنبيهات
+            function showToast(message, type = '') {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                toastContainer.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            }
+
+            // أزرار الإجراءات في الجدول
+            document.querySelectorAll('.btn-icon-only').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.title;
+                    showToast(`🔔 ${action} - قيد التطوير`, '');
+                });
+            });
+
+            console.log('🎛️ لوحة تحكم MD THING - جاهزة');
+            console.log('👤 Owner: mohamedhere63@gmail.com');
+        });
+    </script>
+</body>
+</html>
