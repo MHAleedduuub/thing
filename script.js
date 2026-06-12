@@ -13,7 +13,7 @@ const translations = {
         'login': 'تسجيل الدخول',
         'logout': 'خروج',
         'hero-badge': 'مبرمج محترف',
-        'hero-title': 'Owner',
+        'hero-title': 'MAD MAN',
         'hero-subtitle': 'صانع هوستات ومواقع | مصمم حلول تقنية | مبرمج شامل',
         'hero-description': 'مبرمج محترف جداً، متخصص في صناعة الهوستات والمواقع الاحترافية. أقدم حلولاً تقنية متكاملة بجودة عالية وأسعار تنافسية.',
         'hero-projects': 'تصفح المشاريع المجانية',
@@ -232,13 +232,11 @@ function handleLogout() {
 }
 
 // === دالة الذهاب للوحة التحكم ===
+// === دالة الذهاب للوحة التحكم ===
 function goToDashboard() {
     closeModal(DOM.welcomeModal);
-    // هنا يمكن توجيه المستخدم للوحة التحكم
-    // window.location.href = '/dashboard';
-    alert(state.currentLang === 'ar' ? 
-        'سيتم توجيهك للوحة التحكم قريباً!' : 
-        'You will be redirected to the dashboard soon!');
+    // التوجيه للوحة التحكم
+    window.location.href = 'dashboard.html';
 }
 
 // === أحداث النقر على الروابط (إغلاق القائمة في الجوال) ===
