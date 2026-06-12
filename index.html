@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MD THING - موقع المبرمج المحترف صانع الهوستات والمواقع">
+    <meta name="author" content="Owner">
+    <title>MD THING | الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" data-lang="logo">MD THING</a>
+            
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-lang="nav-home">الرئيسية</a></li>
+                <li><a href="#about" class="nav-link" data-lang="nav-about">عن الأونر</a></li>
+                <li><a href="#projects" class="nav-link" data-lang="nav-projects">المشاريع المجانية</a></li>
+                <li><a href="#contact" class="nav-link" data-lang="nav-contact">تواصل</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <!-- زر تغيير اللغة -->
+                <button class="icon-btn lang-toggle" id="langToggle" title="تغيير اللغة">
+                    <span class="lang-text">EN</span>
+                </button>
+                
+                <!-- زر الوضع الليلي/النهاري -->
+                <button class="icon-btn theme-toggle" id="themeToggle" title="تغيير الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <!-- زر تسجيل الدخول -->
+                <button class="btn btn-primary login-btn-nav" id="loginBtnNav" data-lang="login">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+                
+                <!-- زر تسجيل الخروج (مخفي افتراضياً) -->
+                <button class="btn btn-outline logout-btn-nav" id="logoutBtnNav" style="display:none;" data-lang="logout">
+                    <i class="fas fa-sign-out-alt"></i> خروج
+                </button>
+
+                <!-- قائمة الجوال -->
+                <button class="icon-btn menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي (Hero) -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge" data-lang="hero-badge">مبرمج محترف</div>
+            <h1 class="hero-title" data-lang="hero-title">Owner</h1>
+            <p class="hero-subtitle" data-lang="hero-subtitle">صانع هوستات ومواقع | مصمم حلول تقنية | مبرمج شامل</p>
+            <p class="hero-description" data-lang="hero-description">
+                مبرمج محترف جداً، متخصص في صناعة الهوستات والمواقع الاحترافية. 
+                أقدم حلولاً تقنية متكاملة بجودة عالية وأسعار تنافسية.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary btn-lg" data-lang="hero-projects">تصفح المشاريع المجانية</a>
+                <a href="#about" class="btn btn-outline btn-lg" data-lang="hero-about">اعرف المزيد عني</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">+50</span>
+                    <span class="stat-label" data-lang="stat-projects">مشروع منجز</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">+30</span>
+                    <span class="stat-label" data-lang="stat-clients">عميل سعيد</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label" data-lang="stat-support">دعم فني</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-avatar">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Ccircle cx='150' cy='100' r='60' fill='%230d6efd'/%3E%3Ccircle cx='150' cy='260' r='80' fill='%230d6efd'/%3E%3C/svg%3E" 
+                     alt="Owner Avatar" 
+                     class="avatar-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="avatar-fallback" style="display:none;">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم عن الأونر -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title" data-lang="about-title">عن <span>الأونر</span></h2>
+            <div class="about-content">
+                <div class="about-info">
+                    <h3 data-lang="about-name">Owner - المبرمج المحترف</h3>
+                    <p data-lang="about-desc1">
+                        مبرمج محترف جداً بخبرة واسعة في مجال البرمجة وتطوير المواقع وصناعة الهوستات. 
+                        أتمتع بمهارات عالية في لغات البرمجة المختلفة وأسعى دائماً لتقديم أفضل الحلول التقنية.
+                    </p>
+                    <p data-lang="about-desc2">
+                        متخصص في تصميم وتطوير المواقع الاحترافية، أنظمة إدارة المحتوى، تطبيقات الويب، 
+                        وحلول الاستضافة المتكاملة. أضمن لعملائي أعلى معايير الجودة والأمان.
+                    </p>
+                    <div class="skills">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Hosting</span>
+                        <span class="skill-tag">UI/UX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المشاريع المجانية -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title" data-lang="projects-title">المشاريع <span>المجانية</span></h2>
+            <p class="section-description" data-lang="projects-desc">مجموعة من المشاريع المجانية المقدمة من الأونر للجميع</p>
+            
+            <div class="projects-grid">
+                <!-- مشروع 1 -->
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="project-title">قالب موقع شخصي</h3>
+                    <p class="project-description">قالب احترافي للمواقع الشخصية بتصميم عصري ومتجاوب مع جميع الأجهزة.</p>
+                    <div class="project-tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JS</span>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm">تحميل مجاني</a>
+                </div>
+
+                <!-- مشروع 2 -->
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="project-title">لوحة تحكم هوست</h3>
+                    <p class="project-description">لوحة تحكم بسيطة لإدارة ملفات الاستضافة مع دعم اللغة العربية.</p>
+                    <div class="project-tags">
+                        <span>PHP</span>
+                        <span>MySQL</span>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm">تحميل مجاني</a>
+                </div>
+
+                <!-- مشروع 3 -->
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="project-title">تطبيق ويب للمهام</h3>
+                    <p class="project-description">تطبيق لإدارة المهام اليومية بواجهة عربية أنيقة وسهلة الاستخدام.</p>
+                    <div class="project-tags">
+                        <span>React</span>
+                        <span>Node.js</span>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm">تحميل مجاني</a>
+                </div>
+
+                <!-- مشروع 4 -->
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="project-title">مكتبة أكواد جاهزة</h3>
+                    <p class="project-description">مجموعة من الأكواد البرمجية الجاهزة للاستخدام في مشاريع الويب.</p>
+                    <div class="project-tags">
+                        <span>JS</span>
+                        <span>CSS</span>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm">تحميل مجاني</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-lang="contact-title">تواصل <span>معي</span></h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>owner@mdthing.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-discord"></i>
+                        <span>Owner#1234</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <span>@Owner_MD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="container">
+            <p data-lang="footer-text">© 2024 <strong>MD THING</strong> - جميع الحقوق محفوظة. صُنع بواسطة <strong>Owner</strong></p>
+        </div>
+    </footer>
+
+    <!-- نافذة تسجيل الدخول (Modal) -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 data-lang="login-title">تسجيل الدخول</h2>
+                <button class="icon-btn modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username" data-lang="username">اسم المستخدم</label>
+                        <input type="text" id="username" placeholder="Owner" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" data-lang="password">كلمة المرور</label>
+                        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                    <div class="form-error" id="loginError"></div>
+                    <button type="submit" class="btn btn-primary btn-block" data-lang="login-submit">دخول</button>
+                </form>
+                <div class="login-hint">
+                    <p data-lang="login-hint">الحساب التجريبي: <strong>Owner</strong> / <strong>Owner123</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة ترحيب بعد تسجيل الدخول -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal modal-welcome">
+            <div class="modal-header">
+                <h2>👋</h2>
+                <button class="icon-btn modal-close" id="closeWelcomeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="welcome-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 data-lang="welcome-title">مرحباً بعودتك!</h3>
+                <p data-lang="welcome-text">تم تسجيل الدخول بنجاح. أهلاً بك في لوحة تحكم MD THING.</p>
+                <button class="btn btn-primary" id="goToDashboard" data-lang="go-dashboard">الذهاب للوحة التحكم</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
